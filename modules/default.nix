@@ -51,12 +51,18 @@ with lib;
         enable = true;
         package = perSystem.config.packages.default;
         host = "0.0.0.0";
-        models = with pkgs.nixified-ai.models; [
-          flux1-dev-q4_0
-          flux-ae
-          flux-text-encoder-1
-          t5-v1_1-xxl-encoder
-        ];
+        models =
+          with pkgs.nixified-ai.models;
+          [
+            flux1-dev-q4_0
+            flux-ae
+            flux-text-encoder-1
+            t5-v1_1-xxl-encoder
+          ]
+          ++ (import ./extraModels.nix {
+            fetchair = pkgs.fetchair;
+            fetchResource = pkgs.fetchResource;
+          });
         customNodes = with pkgs.comfyuiPackages; [
           comfyui-gguf
         ];

@@ -8,6 +8,7 @@ Nix-based repository containing my playground for AI tools.
 
 - [usage](#usage)
   - [IMPORTANT](#important)
+  - [additional-models](#additional-models)
 - [development](#development)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -74,6 +75,10 @@ Then run `nixos-rebuild switch --sudo /path/to/your/system/flake` once.
 This will update the nix-daemon with the tokens needed to download models.
 
 After that, the module can be enabled.
+
+### additional-models
+
+Additional can be added with the `modules/extraModels.nix` file.
 
 ## development
 
