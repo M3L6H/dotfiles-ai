@@ -63,9 +63,24 @@ with lib;
             fetchair = pkgs.fetchair;
             fetchResource = pkgs.fetchResource;
           });
-        customNodes = with pkgs.comfyuiPackages; [
-          comfyui-gguf
-        ];
+        customNodes =
+          with pkgs.comfyuiPackages;
+          [
+            comfyui-cg-use-everywhere
+            comfyui-gguf
+            # comfyui-kjnodes
+            comfyui-impact-pack
+            comfyui-impact-subpack
+            comfyui-inpaint
+            comfyui-rgthree
+          ]
+          ++ (import ./extraNodes.nix (
+            with pkgs;
+            {
+              inherit fetchFromGitHub;
+              mkComfyUICustomNode = pkgs.comfyuiPackages.comfyui.mkComfyUICustomNode;
+            }
+          ));
       };
     };
 }
