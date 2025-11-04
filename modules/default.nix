@@ -23,6 +23,8 @@ with lib;
       cfg = config.m3l6h.${pname};
     in
     mkIf cfg.enable {
+      nixpkgs.overlays = import ./overlays;
+
       nix.settings = {
         substituters = [
           "https://nix-community.cachix.org"
@@ -68,7 +70,7 @@ with lib;
           [
             comfyui-cg-use-everywhere
             comfyui-gguf
-            # comfyui-kjnodes
+            comfyui-kjnodes
             comfyui-impact-pack
             comfyui-impact-subpack
             comfyui-inpaint
