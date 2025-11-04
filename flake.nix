@@ -15,7 +15,7 @@
     };
 
     nixified-ai = {
-      url = "github:nixified-ai/flake";
+      url = "github:M3L6H/nixified-ai-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
