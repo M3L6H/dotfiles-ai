@@ -49,40 +49,45 @@ with lib;
         ];
       };
 
-      services.comfyui = {
-        enable = true;
-        package = perSystem.config.packages.default;
-        host = "0.0.0.0";
-        models =
-          with pkgs.nixified-ai.models;
-          [
-            flux1-dev-q4_0
-            flux-ae
-            flux-text-encoder-1
-            t5-v1_1-xxl-encoder
-          ]
-          ++ (import ./extraModels.nix {
+      services.comfyui =
+        let
+          fetchers = {
             fetchair = pkgs.fetchair;
             fetchResource = pkgs.fetchResource;
-          });
-        customNodes =
-          with pkgs.comfyuiPackages;
-          [
-            comfyui-cg-use-everywhere
-            comfyui-gguf
-            comfyui-kjnodes
-            comfyui-impact-pack
-            comfyui-impact-subpack
-            comfyui-inpaint
-            comfyui-rgthree
-          ]
-          ++ (import ./extraNodes.nix (
-            with pkgs;
-            {
-              inherit fetchFromGitHub;
-              mkComfyUICustomNode = pkgs.comfyuiPackages.comfyui.mkComfyUICustomNode;
-            }
-          ));
-      };
+          };
+        in
+        {
+          enable = true;
+          package = perSystem.config.packages.default;
+          host = "0.0.0.0";
+          models =
+            with pkgs.nixified-ai.models;
+            [
+              flux1-dev-q4_0
+              flux-ae
+              flux-text-encoder-1
+              t5-v1_1-xxl-encoder
+            ]
+            ++ (import ./models fetchers)
+            ++ (import ./extraModels.nix fetchers);
+          customNodes =
+            with pkgs.comfyuiPackages;
+            [
+              comfyui-cg-use-everywhere
+              comfyui-gguf
+              comfyui-kjnodes
+              comfyui-impact-pack
+              comfyui-impact-subpack
+              comfyui-inpaint
+              comfyui-rgthree
+            ]
+            ++ (import ./extraNodes.nix (
+              with pkgs;
+              {
+                inherit fetchFromGitHub;
+                mkComfyUICustomNode = pkgs.comfyuiPackages.comfyui.mkComfyUICustomNode;
+              }
+            ));
+        };
     };
 }
