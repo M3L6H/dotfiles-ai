@@ -9,11 +9,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixified-ai = {
       url = "github:M3L6H/nixified-ai-flake";
       inputs.nixpkgs.follows = "nixpkgs";
