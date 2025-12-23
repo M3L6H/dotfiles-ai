@@ -15,6 +15,7 @@ with lib;
   imports = [
     nixified-ai.nixosModules.comfyui
 
+    (import ./extraModels.nix { inherit pname; })
     (import ./secrets.nix inputs)
   ];
 
@@ -44,8 +45,7 @@ with lib;
               flux-text-encoder-1
               t5-v1_1-xxl-encoder
             ]
-            ++ (import ./models fetchers)
-            ++ (import ./extraModels.nix fetchers);
+            ++ (import ./models fetchers);
           customNodes =
             with pkgs.comfyuiPackages;
             [
