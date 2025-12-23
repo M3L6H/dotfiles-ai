@@ -1,4 +1,4 @@
-{ pname, nixified-ai }:
+{ pname, nixified-ai }@inputs:
 perSystem:
 {
   config,
@@ -15,7 +15,7 @@ with lib;
   imports = [
     nixified-ai.nixosModules.comfyui
 
-    ./secrets.nix
+    (import ./secrets.nix inputs)
   ];
 
   config =

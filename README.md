@@ -15,27 +15,7 @@ Nix-based repository containing my playground for AI tools.
 
 ## usage
 
-This flake cannot be used directly from GitHub.
-It should be cloned locally and used as such:
-
-```nix
-# flake.nix
-{
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    m3l6h-ai = {
-      url = "/home/m3l6h/files/dev/m3l6h/dotfiles-ai";
-    };
-  };
-
-  outputs = {
-    # ...
-  };
-}
-```
-
-It provides a module which should be imported and enabled:
+This flake provides a module which should be imported and enabled:
 
 ```nix
 # module.nix
@@ -56,18 +36,11 @@ It provides a module which should be imported and enabled:
 
 ### IMPORTANT
 
-Before importing and enabling the module, create a `modules/secrets.nix` file with the contents:
+Before enabling the module, ensure you have configured `m3l6h.ai.environmentPath` to point to a `.env` file containing:
 
-```nix
-{ ... }:
-{
-  config = {
-    systemd.services.nix-daemon.environment = {
-      HF_TOKEN = "<Hugging Face Token>";
-      CIVITAI_API_TOKEN = "<CivitAI Token>";
-    };
-  };
-}
+```env
+HF_TOKEN = "<Hugging Face Token>"
+CIVITAI_API_TOKEN = "<CivitAI Token>"
 ```
 
 Then run `nixos-rebuild switch --sudo /path/to/your/system/flake` once.
