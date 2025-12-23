@@ -50,7 +50,7 @@ After that, the module can be enabled.
 
 ### additional-models
 
-Additional can be added with the `modules/extraModels.nix` file.
+Additional can be added through a separate repo via the [`extra-models`](./modules/extraModels.nix) option.
 
 ## development
 
